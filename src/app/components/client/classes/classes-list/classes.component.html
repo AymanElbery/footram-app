@@ -1,0 +1,69 @@
+<div class="container-fluid">
+  <div class="row ">
+    <div class="col-sm-12">
+      <div class="card mt-4">
+        <div class="card-header pb-0">
+          <h5 style="font-weight: bold;">الأنشطة الرياضية</h5>
+          <span style="color: #999;">قائمة الأنشطة الرياضية المتاحة في {{ client_name }}</span>
+        </div>
+        <div class="card-body">
+          <div *ngIf="loading" class="d-flex justify-content-center">
+            <img width="50px" src="assets/images/login/submit_loading.gif" alt="">
+          </div>
+          <div *ngIf="!loading" class="d-flex justify-content-end">
+            <a tooltip="إضافة" [routerLink]="['/classes/add']" class="btn btn-primary"> <i class="fa fa-plus"></i></a>
+          </div>
+          <div *ngIf="!loading && classes.length != 0" class="col-4 d-flex justify-content-start">
+            <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="بحث ..">
+          </div>
+          <div *ngIf="classes.length != 0 && !loading"  class="table-responsive mt-2">
+            <table class="table table-striped table-bordered" id="usersTable">
+              <thead>
+                <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-center">الاسم</th>
+                  <th class="text-center">السعر</th>
+                  <th class="text-center">القدرة الإستيعابية</th>
+                  <th class="text-center">عدد الجلسات</th>
+                  <th class="text-center">تاريخ البداية</th>
+                  <th class="text-center">تاريخ النهاية</th>
+                  <th class="text-center">الحالة</th>
+                  <th class="text-center">العمليات</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let class of filteredClasses | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index">
+                  <td class="text-center">{{ i + 1 }}</td>
+                  <td class="text-center">{{ class.name }}</td>
+                  <td class="text-center">{{ class.price }} {{ client_currency }}</td>
+                  <td class="text-center">{{ class.capacity }}</td>
+                  <td class="text-center">{{ class.sessions }}</td>
+                  <td class="text-center">{{ class.start_date | customDate:'dd/MM/yyyy' }}</td>
+                  <td class="text-center">{{ class.end_date | customDate:'dd/MM/yyyy' }}</td>
+                  <td class="text-center">
+                    <i tooltip="تفعيل" style="cursor: pointer; font-size: 25px; position: relative; top: 8px; color: #6950fd;" *ngIf="class.status === 'inactive'" (click)="changeClassStatus(class.id)" class="fa fa-toggle-off" aria-hidden="true"></i>
+                    <i tooltip="إلغاء التفعيل" style="cursor: pointer; font-size: 25px; position: relative; top: 8px; color: #6950fd;" *ngIf="class.status === 'active'" (click)="changeClassStatus(class.id)" class="fa fa-toggle-on" aria-hidden="true"></i>
+                  </td>
+                  <td class="text-center">
+                    <i tooltip="تفاصيل النشاط" style="cursor: pointer; font-size: 25px; position: relative; top: 8px; color: #a798f8;" (click)="classDetails(class.id)" class="fa fa-bars" aria-hidden="true"></i>
+                    <i tooltip="حذف النشاط" style="cursor: pointer; font-size: 25px; position: relative; top: 8px; margin-right: 10px;" (click)="deleteClass(class.id)" class="fa fa-times-circle text-danger" aria-hidden="true"></i>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="paginate-div">
+              <pagination-controls
+                (pageChange)="setPage($event)"
+                previousLabel="السابق"
+                nextLabel="التالي">
+              </pagination-controls>
+            </div>
+          </div>
+          <div *ngIf="classes.length == 0 && !loading" class="d-flex justify-content-center">
+            <h5>لا يوجد أنشطة رياضية حالياً</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

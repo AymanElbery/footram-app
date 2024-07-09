@@ -1,0 +1,13 @@
+<div class="media profile-media">
+   <svg-icon *ngIf="!loading" src="assets/svgIcon/icons.svg"></svg-icon>   
+   <img *ngIf="loading" width="25px" src="assets/images/login/submit_loading.gif" alt="">
+</div>
+<ul class="profile-dropdown onhover-show-div">
+   <li *ngFor="let role of roles">
+      <a (click)="change_role(role.id)">
+         <span *ngIf="role.id === current_role_id" style="font-weight: bold; color: #215e1d;">{{ role?.name }}</span>
+         <span *ngIf="role.id !== current_role_id">{{ role?.name }}</span>
+      </a>
+   </li>
+</ul>
+

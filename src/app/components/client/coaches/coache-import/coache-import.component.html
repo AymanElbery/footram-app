@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <div class="row ">
+    <div class="col-sm-12">
+      <div class="card mt-4">
+        <div class="card-header pb-0">
+          <h5 style="font-weight: bold;">إستيراد قائمة مدربين بواسطة رفع ملف إكسيل</h5>
+        </div>
+        <div class="card-body">
+          <div *ngIf="loading" class="d-flex justify-content-center">
+            <img width="50px" src="assets/images/login/submit_loading.gif" alt="">
+          </div>
+          <div *ngIf="!loading" class="d-flex justify-content-end">
+            <a [routerLink]="['/coaches']" class="btn btn-primary">قائمة المدربين <i class="fa fa-arrow-left"></i></a>
+          </div>
+          <div class="mt-2" *ngIf="!loading">
+            <div class="row mt-4">
+              <div class="col-md-6">
+                <h6 style="color: #999; margin-top: 10px;">يجب أن يكون ملف الإكسيل مطابق للصورة أدناه</h6>
+                <img style="margin-top: 10px;" src="assets/images/import/import_coaches_excel.png" alt="">
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-md-6">
+                <label for="file">رفع ملف إكسيل</label>
+                <input type="file" (change)="onFileChange($event)" class="form-control" id="file">
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-md-12">
+                <button class="btn btn-primary" (click)="importCoaches()">إستيراد <i class="fa fa-upload"></i></button>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

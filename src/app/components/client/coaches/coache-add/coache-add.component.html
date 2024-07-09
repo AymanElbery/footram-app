@@ -1,0 +1,69 @@
+<div class="container-fluid">
+  <div class="row ">
+    <div class="col-sm-12">
+      <div class="card mt-4">
+        <div class="card-header pb-0">
+          <h5 style="font-weight: bold;">إضافة مدرب</h5>
+        </div>
+        <div class="card-body">
+          <div *ngIf="loading" class="d-flex justify-content-center">
+            <img width="50px" src="assets/images/login/submit_loading.gif" alt="">
+          </div>
+          <div *ngIf="!loading" class="d-flex justify-content-end">
+            <a [routerLink]="['/coaches']" class="btn btn-primary">قائمة المدربين <i class="fa fa-arrow-left"></i></a>
+          </div>
+          <div class="mt-2" *ngIf="!loading">
+            <form [formGroup]="coachForm">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="name">الاسم</label>
+                    <input type="text" formControlName="name" class="form-control" id="name">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="phone">رقم الجوال</label>
+                    <input type="text" formControlName="phone" class="form-control" id="phone" placeholder="05xxxxxxxx">
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="status">الحالة</label>
+                    <select formControlName="status" class="form-control" id="status">
+                      <option value="active">نشط</option>
+                      <option value="inactive">غير نشط</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="national_id">الجنسية</label>
+                    <select formControlName="national_id" class="form-control" id="national_id">
+                      <option *ngFor="let national of nationalities" [value]="national.id">{{ national.name }}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <button class="btn btn-primary" (click)="addCoach()">إضافة <i class="fa fa-save"></i></button>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-12">
+                  <div *ngIf="loading" class="text-center">
+                    <img width="50px" src="assets/images/login/submit_loading.gif" alt="">
+                  </div>
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

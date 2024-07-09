@@ -1,0 +1,19 @@
+{
+    "form": {
+      "name": {
+        "required": "Name is required.",
+        "minlength": "Name must be at least {{ requiredLength }} characters long."
+      },
+      "email": {
+        "required": "Email is required.",
+        "email": "Invalid email address."
+      },
+      "message": {
+        "required": "Message is required."
+      }
+    },
+    "errors": {
+      "generic": "An error occurred. Please try again later."
+    }
+  }
+  

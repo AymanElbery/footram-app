@@ -1,0 +1,47 @@
+<div class="container-fluid">
+  <div class="row ">
+    <div class="col-sm-12">
+      <div class="card mt-4">
+        <div class="card-header pb-0">
+          <h5 style="font-weight: bold;">إضافة صلاحية</h5>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-end">
+            <a [routerLink]="['/roles']" class="btn btn-primary">قائمة الصلاحيات <i class="fa fa-arrow-left"></i></a>
+          </div>
+          <div class="mt-2">
+            <form [formGroup]="roleForm">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="name">الاسم</label>
+                    <input type="text" formControlName="name" class="form-control" id="name">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="description">الوصف</label>
+                    <input type="text" formControlName="description" class="form-control"  id="description">
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <button class="btn btn-primary" (click)="addRole()">إضافة <i class="fa fa-save"></i></button>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-12">
+                  <div *ngIf="loading" class="text-center">
+                    <img width="50px" src="assets/images/login/submit_loading.gif" alt="">
+                  </div>
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

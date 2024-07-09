@@ -1,0 +1,61 @@
+<div class="container-fluid">
+  <div class="row ">
+    <div class="col-sm-12">
+      <div class="card mt-4">
+        <div class="card-header pb-0">
+          <h5 style="font-weight: bold;">إضافة أكاديمية</h5>
+        </div>
+        <div class="card-body">
+          <div class="d-flex justify-content-end">
+            <a [routerLink]="['/clients']" class="btn btn-primary">قائمة الأكاديميات <i class="fa fa-arrow-left"></i></a>
+          </div>
+          <div class="mt-2">
+            <form [formGroup]="clientForm">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="name">الاسم</label>
+                    <input type="text" formControlName="name" class="form-control" id="name">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="phone">رقم الجوال</label>
+                    <input type="text" formControlName="phone" class="form-control" id="phone">
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-3">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="email">البريد الإلكتروني</label>
+                    <input type="email" formControlName="email" class="form-control" id="email">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="profile_image">شعار الأكاديمية</label>
+                    <input type="file" (change)="onFileSelected($event)" class="form-control" id="profile_image">
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <button class="btn btn-primary" (click)="addClient()">إضافة <i class="fa fa-save"></i></button>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-12">
+                  <div *ngIf="loading" class="text-center">
+                    <img width="50px" src="assets/images/login/submit_loading.gif" alt="">
+                  </div>
+                </div>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

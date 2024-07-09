@@ -1,0 +1,56 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xl-6 b-center bg-size" style="background-image: url('assets/images/login/2.jpg'); background-size: cover; background-position: center center; display: block;">
+      <img class="bg-img-cover bg-center" src="assets/images/login/2.jpg" alt="looginpage" style="display: none;">
+    </div>
+    <div class="col-xl-6 p-0">
+      <div *ngIf="!otp" class="login-card" dir="rtl">
+        <form [formGroup]="loginForm" class="theme-form login-form">
+          <h4 class="text-center">تسجيل الدخول</h4>
+          <br>
+          <div class="form-group">
+            <label>رقم الهوية/الإقامة</label>
+            <div class="input-group"><span class="input-group-text"><i class="icon-user"></i></span>
+              <input class="form-control" (input)="onSnnChange($event)" formControlName="snn" type="text">
+            </div>
+            <span class="text-danger" *ngIf="!snnIsNumber">يجب إدخال أرقام فقط في هذا الحقل</span>
+          </div>
+          <div class="form-group">
+            <label>رقم الجوال</label>
+            <div class="input-group"><span class="input-group-text"><i class="icon-mobile"></i></span>
+              <input class="form-control" (input)="onPhoneChange($event)" type="text" formControlName="phone" placeholder="05xxxxxxxx">
+            </div>
+            <span class="text-danger" *ngIf="!phoneIsNumber">يجب إدخال أرقام فقط في هذا الحقل</span>
+          </div>
+          <div class="form-group">
+            <button (click)="submit()" class="btn btn-primary btn-block" style="width: 100%;" type="button">دخول</button>
+          </div>
+          <div *ngIf="loading" class="text-center">
+            <img width="50px" src="assets/images/login/submit_loading.gif" alt="">
+          </div>
+          <!-- <p>Don't have account?<a class="ms-2" href="authentication/register/register-simple">Create Account</a></p> -->
+        </form>
+      </div>
+      <div *ngIf="otp" class="login-card" dir="rtl">
+        <form [formGroup]="otpForm" class="theme-form login-form">
+          <h4 class="text-center">التحقق من رقم الجوال</h4>
+          <h6 class="text-gray">أدخل رمز التحقق المكون من 4 أرقام والذي تم إرساله إلى رقم جوالك المسجل لدينا</h6>
+          <div class="form-group">
+            {{otpString}}
+            <label>رمز التحقق</label>
+            <div class="input-group"><span class="input-group-text"><i class="icon-mobile"></i></span>
+              <input class="form-control" type="text" formControlName="otp">
+            </div>
+          </div>
+          <div class="form-group">
+            <button (click)="submit_otp()" class="btn btn-primary btn-block" style="width: 100%;" type="button">تأكيد</button>
+          </div>
+          <div *ngIf="loading" class="text-center">
+            <img width="50px" src="assets/images/login/submit_loading.gif" alt="">
+          </div>
+          <!-- <p>Don't have account?<a class="ms-2" href="authentication/register/register-simple">Create Account</a></p> -->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>  

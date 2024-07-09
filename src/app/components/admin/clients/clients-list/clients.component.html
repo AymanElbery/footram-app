@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <div class="row ">
+    <div class="col-sm-12">
+      <div class="card mt-4">
+        <div class="card-header pb-0">
+          <h5 style="font-weight: bold;">الأكاديميات</h5>
+        </div>
+        <div class="card-body">
+          <div *ngIf="loading" class="d-flex justify-content-center">
+            <img width="50px" src="assets/images/login/submit_loading.gif" alt="">
+          </div>
+          <div *ngIf="!loading" class="d-flex justify-content-end">
+            <a [routerLink]="['/clients/add']" class="btn btn-primary">إضافة <i class="fa fa-plus"></i></a>
+          </div>
+          <div *ngIf="!loading && clients.length != 0"  class="table-responsive mt-2">
+            <table class="table table-striped table-bordered" id="usersTable">
+              <thead>
+                <tr>
+                  <th class="text-center">#</th>
+                  <th class="text-right">الاسم</th>
+                  <th class="text-right">رقم الجوال</th>
+                  <th class="text-right">البريد الإلكتروني</th>
+                  <th class="text-center">العمليات</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let client of clients | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }">
+                  <td class="text-center">{{ client.id }}</td>
+                  <td class="text-right">
+                    <img *ngIf="!client.profile_image" style="position: relative; bottom: 3px;" src="assets/images/academy-profile/{{ client.profile_image }}" width="30px" alt="">
+                    <img src="{{ client.profile_image }}" width="30px" alt="">
+                    {{ client.name }}
+                  </td>
+                  <td class="text-right">{{ client.phone }}</td>
+                  <td class="text-right">{{ client.email }}</td>
+                  <td class="text-center">
+                    <a [routerLink]="['/clients/edit', client.id]" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i></a>
+                    <button [disabled]="client.name == 'مدير النظام'" style="margin-right: 5px;" class="btn btn-danger btn-sm" (click)="deleteClient(client.id)"> <i class="fa fa-close"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="paginate-div">
+              <pagination-controls
+                (pageChange)="setPage($event)"
+                previousLabel="السابق"
+                nextLabel="التالي">
+              </pagination-controls>
+            </div>
+          </div>
+          <div>
+            <div *ngIf="!loading && clients.length == 0" class="d-flex justify-content-center mt-5 alert alert-dark">
+              <h5>{{ message }}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
