@@ -25,6 +25,7 @@ export class ClassDetailsComponent implements OnInit {
   itemsPerPage = 5;
   prevLabel = 'السابق';
   nextLabel = 'التالي';
+  searchTerm: string = '';
 
   constructor(
     private classesService: ClassesService,
@@ -50,6 +51,16 @@ export class ClassDetailsComponent implements OnInit {
       }
     });
   }
+
+  get filteredClassSessions() {
+    if (!this.searchTerm) {
+      return this.classSessions;
+    }
+    
+    return this.classSessions.filter((classSession: any) =>  
+      classSession.date.toLowerCase().includes(this.searchTerm.toLowerCase()) 
+    );
+  }
   
 
   getClass(id: any) {
@@ -59,6 +70,7 @@ export class ClassDetailsComponent implements OnInit {
       (response: any) => {
         this.loading = false;
         this.classData = response.data;
+        this.getClassSessions();
       },
       (error: any) => {
         this.loading = false;

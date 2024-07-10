@@ -35,8 +35,7 @@ export class ClassAddComponent implements OnInit {
       capacity: ['', Validators.required],
       sessions: ['', Validators.required],
       days: ['', Validators.required],
-      start_date: ['', Validators.required],
-      end_date: ['', Validators.required],
+      start_date: ['', Validators.required]
     });
   }
 
@@ -67,7 +66,6 @@ export class ClassAddComponent implements OnInit {
     if(this.classForm.valid) {
       let data = this.classForm.value;
       data.client_id = this.authService.getClientId();
-      console.log(data);
       this.classesService.addClass(data).subscribe(
         (response: any) => {
           this.loading = false;

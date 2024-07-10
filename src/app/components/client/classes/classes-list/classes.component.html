@@ -24,9 +24,8 @@
                   <th class="text-center">الاسم</th>
                   <th class="text-center">السعر</th>
                   <th class="text-center">القدرة الإستيعابية</th>
-                  <th class="text-center">عدد الجلسات</th>
+                  <th class="text-center">عدد الحصص التدريبية</th>
                   <th class="text-center">تاريخ البداية</th>
-                  <th class="text-center">تاريخ النهاية</th>
                   <th class="text-center">الحالة</th>
                   <th class="text-center">العمليات</th>
                 </tr>
@@ -39,7 +38,6 @@
                   <td class="text-center">{{ class.capacity }}</td>
                   <td class="text-center">{{ class.sessions }}</td>
                   <td class="text-center">{{ class.start_date | customDate:'dd/MM/yyyy' }}</td>
-                  <td class="text-center">{{ class.end_date | customDate:'dd/MM/yyyy' }}</td>
                   <td class="text-center">
                     <i tooltip="تفعيل" style="cursor: pointer; font-size: 25px; position: relative; top: 8px; color: #6950fd;" *ngIf="class.status === 'inactive'" (click)="changeClassStatus(class.id)" class="fa fa-toggle-off" aria-hidden="true"></i>
                     <i tooltip="إلغاء التفعيل" style="cursor: pointer; font-size: 25px; position: relative; top: 8px; color: #6950fd;" *ngIf="class.status === 'active'" (click)="changeClassStatus(class.id)" class="fa fa-toggle-on" aria-hidden="true"></i>
