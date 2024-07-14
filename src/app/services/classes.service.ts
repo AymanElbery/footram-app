@@ -19,7 +19,7 @@ export class ClassesService{
         return this.http.get('classes');
     }
 
-    getClass(id: number): Observable<any> {
+    getClassDetails(id: number): Observable<any> {
         return this.http.get(`class-details/${id}`);
     }
 
@@ -45,5 +45,9 @@ export class ClassesService{
 
     changeClassSessionStatus(id: number): Observable<any> { 
         return this.http.post(`class-session-change-status/${id}`, {});
+    }
+
+    getClassCoaches(id: number): Observable<any> {
+        return this.http.get(`class-coaches/${id}`);
     }
 }

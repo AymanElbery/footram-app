@@ -149,7 +149,6 @@ export class DashboardComponent implements OnInit {
       },
       (error: any) => {
         this.loading = false;
-        console.log(error);
         if(error == "Unauthenticated."){
           Swal.fire({
             title: 'إنتهاء صلاحية الدخول',

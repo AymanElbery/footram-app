@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { ClassesComponent } from './classes-list/classes.component';
 import { ClassAddComponent } from './class-add/class-add.component';
 import { ClassDetailsComponent } from './class-details/class-details.component';
+import { ClassCoachesComponent } from './class-coaches/class-coaches.component';
+import { ClassSessionsComponent } from './class-sessions/class-sessions.component';
 
 import { ClassesRoutingModule } from './classes-routing.module';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -20,7 +22,9 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     ClassAddComponent,
     ClassDetailsComponent,
     CustomDatePipe,
-    WeekDaysPipe
+    WeekDaysPipe,
+    ClassCoachesComponent,
+    ClassSessionsComponent
   ],
   imports: [
     CommonModule,
@@ -31,6 +35,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     TabsModule.forRoot(),
     ReactiveFormsModule,
     ClassesRoutingModule
-  ]
+  ],
+  bootstrap: [ClassDetailsComponent]
 })
 export class ClassesModule { }

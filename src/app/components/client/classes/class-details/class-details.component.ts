@@ -16,7 +16,6 @@ import { TranslateService } from '@ngx-translate/core';
 export class ClassDetailsComponent implements OnInit {
 
   loading = false;
-  loading2 = false;
   callOnce = false;
   classData: any = {};
   client_currency = '';
@@ -26,6 +25,7 @@ export class ClassDetailsComponent implements OnInit {
   prevLabel = 'السابق';
   nextLabel = 'التالي';
   searchTerm: string = '';
+  classId: any;
 
   constructor(
     private classesService: ClassesService,
@@ -45,116 +45,45 @@ export class ClassDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.events.subscribe(event => {
-      let id = this.activatedRoute.snapshot.paramMap.get('id');
-      if (id && !this.callOnce){
-        this.getClass(id);
+      this.classId = this.activatedRoute.snapshot.paramMap.get('id');
+      if (this.classId && !this.callOnce){
+        this.getClassDetails(this.classId);
       }
     });
   }
 
-  get filteredClassSessions() {
-    if (!this.searchTerm) {
-      return this.classSessions;
-    }
-    
-    return this.classSessions.filter((classSession: any) =>  
-      classSession.date.toLowerCase().includes(this.searchTerm.toLowerCase()) 
-    );
-  }
-  
-
-  getClass(id: any) {
+  getClassDetails(id: any) {
     this.callOnce = true;
     this.loading = true;
-    this.classesService.getClass(id).subscribe(
+    this.classesService.getClassDetails(id).subscribe(
       (response: any) => {
         this.loading = false;
         this.classData = response.data;
-        this.getClassSessions();
       },
       (error: any) => {
-        this.loading = false;
-        Swal.fire({
-          title: 'خطأ في استرجاع بيانات النشاط ',
-          text: error,
-          icon: 'error',
-          confirmButtonText: 'تم'
-        });
-      }
-    );
-  }
-
-  getClassSessions() {
-    this.loading2 = true;
-    this.classesService.getClassSessions(this.classData.id).subscribe(
-      (response: any) => {
-        this.loading2 = false;
-        this.classSessions = response.data;
-        if(this.classSessions.length == 0){
-          this.toastr.info('لا توجد حصص تدريبية لهذا النشاط');
+        if(error == "Unauthenticated."){
+          Swal.fire({
+            title: 'إنتهاء صلاحية الدخول',
+            text: 'لقد انتهت صلاحية الدخول الخاصة بك، يرجى تسجيل الدخول مرة أخرى',
+            icon: 'warning',
+            timerProgressBar: true,
+            timer: 5000,
+            showConfirmButton: false,
+            willClose: () => {
+              this.authService.logout();
+              this.router.navigate(['/login']);
+            }
+          });
+        }else{
+          this.loading = false;
+          Swal.fire({
+            title: 'خطأ في استرجاع بيانات النشاط ',
+            text: error,
+            icon: 'error',
+            confirmButtonText: 'تم'
+          });
         }
-      },
-      (error: any) => {
-        this.loading2 = false;
-        Swal.fire({
-          title: 'خطأ في استرجاع بيانات حصص تدريبية ',
-          text: error,
-          icon: 'error',
-          confirmButtonText: 'تم'
-        });
       }
     );
   }
-
-
-  generateClassSessions() {
-    this.loading2 = true;
-    let data = { 'class_id': this.classData.id};
-    this.classesService.generateClassSessions(data).subscribe(
-      (response: any) => {
-        this.loading2 = false;
-        this.toastr.success('تم إنشاء الحصص التدريبية بنجاح');
-        this.getClassSessions();
-      },
-      (error: any) => {
-        this.loading2 = false;
-        Swal.fire({
-          title: 'خطأ في إنشاء الحصص التدريبية ',
-          text: error,
-          icon: 'error',
-          confirmButtonText: 'تم'
-        });
-      }
-    );
-  }
-
-  changeClassSessionStatus(id: number) {
-    this.loading2 = true;
-    this.classesService.changeClassSessionStatus(id).subscribe(
-      (response: any) => {
-        this.loading2 = false;
-        this.toastr.success('تم تغيير حالة الحصة التدريبية بنجاح');
-        this.getClassSessions();
-      },
-      (error: any) => {
-        this.loading2 = false;
-        Swal.fire({
-          title: 'خطأ في تغيير حالة الحصة التدريبية ',
-          text: error,
-          icon: 'error',
-          confirmButtonText: 'تم'
-        });
-      }
-    );
-  }
-
-  setPage(page: number) {
-    this.currentPage = page;
-  }
-
-
-  deleteClassSession(id: number) {
-
-  }
-
 }
